@@ -1,3 +1,3 @@
-import "THREE" from three;
+import * as THREE from three;
 
 console.log("Hi there!");
