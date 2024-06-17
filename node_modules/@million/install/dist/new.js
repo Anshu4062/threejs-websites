@@ -1,0 +1,1 @@
+"use strict";var e,r,s=require("child_process"),t=require("util"),o=Object.getOwnPropertyNames,c=(e={"src/new.ts"(){process.cwd(),t.promisify(s.exec)}},function(){return r||(0,e[o(e)[0]])((r={exports:{}}).exports,r),r.exports})();module.exports=c;
