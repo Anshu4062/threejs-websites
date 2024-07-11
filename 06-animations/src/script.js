@@ -9,7 +9,7 @@ const scene = new THREE.Scene()
 
 // Object
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: "#538392" })
+const material = new THREE.MeshBasicMaterial({ color: "#FAF9F6" })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
@@ -19,7 +19,7 @@ const sizes = {
     height: 600
 }
 
-// Camera
+// Camera 
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 camera.position.z = 3
 scene.add(camera)
@@ -30,15 +30,16 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 
-// Time
-let time = Date.now()
+// // Time
+// let time = Date.now()
+const clock = new THREE.Clock()
 
 // Animation
 const tick = () => 
 {
-    const currentTime = Date.now()
-    const deltaTime = currentTime - time
-    time = currentTime
+    // const currentTime = Date.now()
+    // const deltaTime = currentTime - time
+    // time = currentTime
 
     mesh.rotation.x += 0.001 * deltaTime
 
