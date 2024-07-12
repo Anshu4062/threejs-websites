@@ -37,6 +37,12 @@ const clock = new THREE.Clock()
 // Animation
 const tick = () => 
 {
+    const elapsedTime = clock.getElapsedTime()
+
+    // Update Objects
+    mesh.rotation.y = elapsedTime * Math.PI * 2
+
+
     // const currentTime = Date.now()
     // const deltaTime = currentTime - time
     // time = currentTime
