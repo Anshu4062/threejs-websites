@@ -3,7 +3,23 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
 import GUI from "lil-gui";
 
-const gui = new GUI();
+//Debug UI Initialization
+const gui = new GUI({
+  width: 400,
+  title: "Debug UI",
+  // , closeFolders: true    // For closing folders by default
+});
+
+gui.close(); // To close Main Folder by default
+//Hide debug UI
+gui.hide()
+// Show Debug UI
+addEventListener("keydown", (event) => {
+  if (event.key == "h") {
+    gui.show(gui._hidden);
+  }
+});
+
 /**
  * Base
  */
@@ -19,28 +35,48 @@ const scene = new THREE.Scene();
 let debugObject = {};
 debugObject.color = "#ff0000";
 
-const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
+let geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
 const material = new THREE.MeshBasicMaterial({ color: debugObject.color });
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
-gui.add(mesh.position, "y").min(-2).max(2).step(0.01).name("vertical axis");
-gui.add(mesh, "visible");
-gui.add(material, "wireframe");
-gui.addColor(debugObject, "color").onChange(() => {
-  material.color.set(debugObject.color)
-})
+// Debug UI
+
+const Folder = gui.addFolder("Folder");
+const ByDefaultClosedFolder = gui.addFolder("ByDefaultClosedFolder");
+ByDefaultClosedFolder.close();
+
+Folder.add(mesh.position, "y").min(-2).max(2).step(0.01).name("vertical axis");
+ByDefaultClosedFolder.add(mesh, "visible");
+ByDefaultClosedFolder.add(material, "wireframe");
+ByDefaultClosedFolder.addColor(debugObject, "color").onChange(() => {
+  material.color.set(debugObject.color);
+});
 
 debugObject.spin = () => {
   gsap.to(mesh.rotation, {
-    y: mesh.rotation.y + 2 * Math.PI
-  })
-}
+    y: mesh.rotation.y + 2 * Math.PI,
+  });
+};
 
-debugObject.subdivision = 3
+Folder.add(debugObject, "spin");
 
-gui.add(debugObject, "subdivision").min(1).max(40).step(1)
-gui.add(debugObject, "spin");
+debugObject.subdivision = 3;
+Folder.add(debugObject, "subdivision")
+  .min(1)
+  .max(40)
+  .step(1)
+  .onFinishChange(() => {
+    mesh.geometry.dispose(); // Delete previous geometries
+    mesh.geometry = new THREE.BoxGeometry(
+      1,
+      1,
+      1,
+      debugObject.subdivision,
+      debugObject.subdivision,
+      debugObject.subdivision
+    );
+  });
 
 /**
  * Sizes

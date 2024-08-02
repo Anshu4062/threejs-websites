@@ -3,7 +3,9 @@
     margin: 0;
     padding: 0;
 }
-
+.h1{
+    position: relative;
+}
 html,
 body
 {
@@ -12,7 +14,7 @@ body
 
 .webgl
 {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     outline: none;
