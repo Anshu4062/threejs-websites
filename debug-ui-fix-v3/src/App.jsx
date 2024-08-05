@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import gsap from "gsap";
+import gsap from "gsap"; // For animations
 import GUI from "lil-gui";
 
 //Debug UI Initialization
