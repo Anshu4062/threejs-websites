@@ -45,12 +45,31 @@ const normalTexture = textureLoader.load("/textures/door/normal.jpg")
 const ambientOcclusionTexture = textureLoader.load("/textures/door/ambientOcclusion.jpg")
 const metalnessTexture = textureLoader.load("/textures/door/metalness.jpg")
 const roughnessTexture = textureLoader.load("/textures/door/roughness.jpg")
+const checkboardTexture = textureLoader.load("/textures/checkerboard-1024x1024.png")
+const checkboardblurryTexture = textureLoader.load("/textures/checkerboard-8x8.png")
+
+// colorTexture.repeat.x = 2
+// colorTexture.repeat.y = 3
+// colorTexture.wrapS = THREE.RepeatWrapping
+// colorTexture.wrapT = THREE.RepeatWrapping
+
+// colorTexture.offset.x = 0.5
+// colorTexture.offset.y = 0.5
+
+// colorTexture.rotation = Math.PI / 4
+// colorTexture.center.x = 0.5
+// colorTexture.center.y = 0.5
+
+checkboardblurryTexture.generateMipmaps = false
+checkboardblurryTexture.magFilter = THREE.NearestFilter
+checkboardblurryTexture.minFilter = THREE.NearestFilter
 
 /**
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ map: colorTexture })
+console.log(geometry.attributes.uv)
+const material = new THREE.MeshBasicMaterial({ map: checkboardblurryTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
