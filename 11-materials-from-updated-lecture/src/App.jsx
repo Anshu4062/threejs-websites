@@ -2,7 +2,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-
 /**
  * Base
  */
@@ -15,18 +14,26 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 
 // Door Textures
-const doorColorTexture = textureLoader.load("../src/assets/textures/door/color.jpg");
-const doorAlphaTexture = textureLoader.load("../src/assets/textures/door/alpha.jpg");
+const doorColorTexture = textureLoader.load(
+  "../src/assets/textures/door/color.jpg"
+);
+const doorAlphaTexture = textureLoader.load(
+  "../src/assets/textures/door/alpha.jpg"
+);
 console.log(doorAlphaTexture);
 
 const ambientOcclusionTexture = textureLoader.load(
   "./assets/textures/door/ambientOcclusion.jpg"
 );
-const heightTexture = textureLoader.load("/assets/textures/door/height.jpg");
+const heightTexture = textureLoader.load(
+  "../src/assets/textures/door/height.jpg"
+);
 const metalnessTexture = textureLoader.load(
   "./assets/textures/door/metalness.jpg"
 );
-const normalTexture = textureLoader.load("/assets/textures/door/normal.jpg");
+const normalTexture = textureLoader.load(
+  "../src/assets/textures/door/normal.jpg"
+);
 const roughnessTexture = textureLoader.load(
   "./assets/textures/door/roughness.jpg"
 );
@@ -38,7 +45,9 @@ const gradientFirstTexture = textureLoader.load(
 // const gradientSecondTexture = textureLoader.load("./assets/textures/gradients/5.jpg")
 
 //
-const matcapTexture = textureLoader.load("/assets/textures/matcaps/1.png");
+const matcapTexture = textureLoader.load(
+  "../src/assets/textures/matcaps/1.png"
+);
 // const matcaps2Texture = textureLoader.load("./assets/textures/matcaps/2.png")
 // const matcaps3Texture = textureLoader.load("./assets/textures/matcaps/3.png")
 // const matcaps4Texture = textureLoader.load("./assets/textures/matcaps/4.png")
@@ -48,8 +57,8 @@ const matcapTexture = textureLoader.load("/assets/textures/matcaps/1.png");
 // const matcaps8Texture = textureLoader.load("./assets/textures/matcaps/8.png")
 
 // Specifying type of textures provided to Three JS
-// doorColorTexture.colorSpace = THREE.SRGBColorSpace
-// matcapTexture.colorSpace = THREE.SRGBColorSpace
+doorColorTexture.colorSpace = THREE.SRGBColorSpace;
+matcapTexture.colorSpace = THREE.SRGBColorSpace;
 
 // Mesh and Geometry
 const material = new THREE.MeshBasicMaterial({ map: doorColorTexture });
