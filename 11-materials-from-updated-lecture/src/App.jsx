@@ -20,27 +20,26 @@ const doorColorTexture = textureLoader.load(
 const doorAlphaTexture = textureLoader.load(
   "../src/assets/textures/door/alpha.jpg"
 );
-console.log(doorAlphaTexture);
 
 const ambientOcclusionTexture = textureLoader.load(
-  "./assets/textures/door/ambientOcclusion.jpg"
+  "../src/assets/textures/door/ambientOcclusion.jpg"
 );
 const heightTexture = textureLoader.load(
   "../src/assets/textures/door/height.jpg"
 );
 const metalnessTexture = textureLoader.load(
-  "./assets/textures/door/metalness.jpg"
+  "../src/assets/textures/door/metalness.jpg"
 );
 const normalTexture = textureLoader.load(
   "../src/assets/textures/door/normal.jpg"
 );
 const roughnessTexture = textureLoader.load(
-  "./assets/textures/door/roughness.jpg"
+  "../src/assets/textures/door/roughness.jpg"
 );
 
 // Environment Textures
 const gradientFirstTexture = textureLoader.load(
-  "./assets/textures/gradients/3.jpg"
+  "../src/assets/textures/gradients/5.jpg"
 );
 // const gradientSecondTexture = textureLoader.load("./assets/textures/gradients/5.jpg")
 
@@ -48,6 +47,10 @@ const gradientFirstTexture = textureLoader.load(
 const matcapTexture = textureLoader.load(
   "../src/assets/textures/matcaps/1.png"
 );
+
+// Checking Public Directory
+const checkingPublicDirectory = textureLoader.load("/images/color")
+
 // const matcaps2Texture = textureLoader.load("./assets/textures/matcaps/2.png")
 // const matcaps3Texture = textureLoader.load("./assets/textures/matcaps/3.png")
 // const matcaps4Texture = textureLoader.load("./assets/textures/matcaps/4.png")
@@ -60,8 +63,47 @@ const matcapTexture = textureLoader.load(
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
 matcapTexture.colorSpace = THREE.SRGBColorSpace;
 
+// MeshMatcapMaterial
+// const material = new THREE.MeshMatcapMaterial()
+// material.matcap = matcapTexture
+
+
 // Mesh and Geometry
-const material = new THREE.MeshBasicMaterial({ map: doorColorTexture });
+// const material = new THREE.MeshBasicMaterial();  // For light shaders
+// const material = new THREE.MeshNormalMaterial();
+// material.flatShading = true
+// material.map = doorColorTexture
+// material.color = new THREE.Color("#00F");
+// material.wireframe = true;
+// material.side = THREE.DoubleSide
+
+// We need to enable transparency for applying opacity
+// material.transparent = true
+// material.alphaMap = doorAlphaTexture
+// material.opacity = 0.1
+
+// MeshDepthMaterial
+// const material = new THREE.MeshDepthMaterial() // Closer the mesh more lighter and far the mesh more darker
+// material.side = THREE.DoubleSide
+
+// MeshLambertMaterial
+// const material = new THREE.MeshLambertMaterial() // This needs actual light without actual light nothing will be visible
+
+// MeshPhongMaterial
+// const material = new THREE.MeshPhongMaterial()
+// material.shininess = 100
+// material.specular = new THREE.Color("#1188ff")
+
+// MeshToonMaterial
+// gradientFirstTexture.magFilter = THREE.NearestFilter; //Zooms small Pixels
+// const material = new THREE.MeshToonMaterial()
+// material.gradientMap = gradientFirstTexture
+// gradientFirstTexture.generateMipmaps = false
+
+// MeshStandardMaterial
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.45
+material.roughness = 0.65
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 30, 30), material);
 const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
@@ -72,6 +114,19 @@ const torus = new THREE.Mesh(
 torus.position.x = 1.5;
 sphere.position.x = -1.5;
 scene.add(sphere, plane, torus);
+
+/**
+ * Lights
+ */
+const anbientLight = new THREE.AmbientLight("#fff", 1)
+scene.add(anbientLight)
+
+const pointLight = new THREE.PointLight("#fff", 30)
+pointLight.position.x = 2
+pointLight.position.y = 0.5
+pointLight.position.z = 4
+material.side = THREE.DoubleSide
+scene.add(pointLight)
 
 /**
  * Sizes
