@@ -126,35 +126,35 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace;
 const material = new THREE.MeshPhysicalMaterial();
 material.metalness = 1;
 material.roughness = 1;
-material.map = doorColorTexture;
-material.aoMap = ambientOcclusionTexture;
-material.side = THREE.DoubleSide;
-material.displacementMap = heightTexture;
-material.displacementScale = 0.1;
-material.metalnessMap = metalnessTexture;
-material.roughnessMap = roughnessTexture;
-material.normalMap = normalTexture;
-material.normalScale.set(0.5, 0.5);
-material.transparent = true;
-material.alphaMap = doorAlphaTexture;
+// material.map = doorColorTexture;
+// material.aoMap = ambientOcclusionTexture;
+// material.side = THREE.DoubleSide;
+// material.displacementMap = heightTexture;
+// material.displacementScale = 0.1;
+// material.metalnessMap = metalnessTexture;
+// material.roughnessMap = roughnessTexture;
+// material.normalMap = normalTexture;
+// material.normalScale.set(0.5, 0.5);
+// material.transparent = true;
+// material.alphaMap = doorAlphaTexture;
 
 gui.add(material, "metalness").min(0).max(1).step(0.0001);
 gui.add(material, "roughness").min(0).max(1).step(0.0001);
 // material.clearcoat = 1
 // material.clearcoatRoughness = 0
 
-material.sheen = 1;
-material.sheenRoughness = 0.25;
-material.sheenColor.set(1, 1, 1);
+// material.sheen = 1;
+// material.sheenRoughness = 0.25;
+// material.sheenColor.set(1, 1, 1);
 
-material.iridescence = 1;
-material.iridescenceIOR = 1
-material.iridescenceThicknessRange = [100, 800]
-// material.wireframe = true
-gui.add(material, "iridescence").min(0).max(1).step(0.0001);
-gui.add(material, "iridescenceIOR").min(1).max(2.333).step(0.0001);
-gui.add(material.iridescenceThicknessRange, "0").min(1).max(1000).step(1);
-gui.add(material.iridescenceThicknessRange, "1").min(1).max(1000).step(1);
+// material.iridescence = 1;
+// material.iridescenceIOR = 1
+// material.iridescenceThicknessRange = [100, 800]
+// // material.wireframe = true
+// gui.add(material, "iridescence").min(0).max(1).step(0.0001);
+// gui.add(material, "iridescenceIOR").min(1).max(2.333).step(0.0001);
+// gui.add(material.iridescenceThicknessRange, "0").min(1).max(1000).step(1);
+// gui.add(material.iridescenceThicknessRange, "1").min(1).max(1000).step(1);
 
 // gui.add(material, "sheen").min(0).max(1).step(0.0001);
 // gui.add(material, "sheenRoughness").min(0).max(1).step(0.0001);
@@ -162,6 +162,14 @@ gui.add(material.iridescenceThicknessRange, "1").min(1).max(1000).step(1);
 
 // gui.add(material, "clearcoat").min(0).max(1).step(0.0001)
 // gui.add(material, "clearcoatRoughness").min(0).max(1).step(0.0001)
+
+material.transmission = 1
+material.ior = 1.5
+material.thickness = 0.5
+
+gui.add(material, "transmission").min(0).max(1).step(0.0001)
+gui.add(material, "ior").min(0).max(10).step(0.0001)
+gui.add(material, "thickness").min(1).max(10).step(0.0001)
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 30, 30), material);
 const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 50, 50), material);
