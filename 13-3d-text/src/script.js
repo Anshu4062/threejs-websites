@@ -18,20 +18,20 @@ const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 
 // Axes Helper
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper)
+// const axesHelper = new THREE.AxesHelper();
+// scene.add(axesHelper);
 
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
+const matcapTexture = textureLoader.load("/textures/matcaps/1.png");
 
 /**
  * Font Loader
  */
 const fontLoader = new FontLoader();
 fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-
   const textGeometry = new TextGeometry("Hello Three.js", {
     font: font,
     size: 0.5,
@@ -44,13 +44,36 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
     bevelSegments: 4,
   });
 
-  const textMaterial = new THREE.MeshBasicMaterial()
+  textGeometry.computeBoundingBox();
+  // textGeometry.translate(
+  //   - textGeometry.boundingBox.max.x * 0.5,
+  //   - textGeometry.boundingBox.max.y * 0.5,
+  //   - textGeometry.boundingBox.max.z * 0.5
+  // )
+  // console.log(textGeometry.boundingBox)
 
-  const text = new THREE.Mesh(textGeometry, textMaterial)
-  scene.add(text)
+  textGeometry.center();
+
+  const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
+
+  const text = new THREE.Mesh(textGeometry, textMaterial);
+  scene.add(text);
+
+  for (let i = 0; i < 100; i++) {
+    const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
+    const donutMaterial = new THREE.MeshMatcapMaterial({
+      matcap: matcapTexture,
+    });
+    const donut = new THREE.Mesh(donutGeometry, donutMaterial);
+    scene.add(donut);
+    donut.position.x = (Math.random() - 0.5) * 10;
+    donut.position.y = (Math.random() - 0.5) * 10;
+    donut.position.z = (Math.random() - 0.5) * 10;
+  }
+
   // text.position.x = -2.2
   // text.position.z = -2
-
+  // textMaterial.wireframe = true
 });
 
 /**
