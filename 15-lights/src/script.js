@@ -2,6 +2,7 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "lil-gui";
+import { RectAreaLightHelper } from "three/examples/jsm/Helpers/RectAreaLightHelper.js";
 
 /**
  * Base
@@ -23,13 +24,52 @@ scene.add(ambientLight);
 gui.add(ambientLight, "intensity").min(0).max(1).step(0.01);
 
 const directionalLight = new THREE.DirectionalLight("#00fffc", 0.3);
+directionalLight.position.set(1, 0.25, 0);
+gui.add(directionalLight.position, "x").min(0).max(1).step(0.01);
+gui.add(directionalLight.position, "y").min(0).max(1).step(0.01);
+gui.add(directionalLight.position, "z").min(0).max(1).step(0.01);
 scene.add(directionalLight);
 
-// const pointLight = new THREE.PointLight(0xffffff, 0.5)
-// pointLight.position.x = 2
-// pointLight.position.y = 3
-// pointLight.position.z = 4
-// scene.add(pointLight)
+const hemisphereLight = new THREE.HemisphereLight("#ff0000", "#0000ff", 0.3);
+scene.add(hemisphereLight);
+
+const pointLight = new THREE.PointLight("#ff9000", 0.5, 10, 2);
+pointLight.position.set(1, -0.5, 1);
+scene.add(pointLight);
+
+const rectAreaLight = new THREE.RectAreaLight("#4e00ff", 2, 1, 1);
+scene.add(rectAreaLight);
+
+const spotLight = new THREE.SpotLight(
+  "#78ff00",
+  0.5,
+  10,
+  Math.PI * 0.1,
+  0.25,
+  1
+);
+spotLight.position.set(0, 2, 3);
+spotLight.target.position.x = -1.75;
+scene.add(spotLight, spotLight.target);
+
+// Helpers
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 0.2)
+scene.add(hemisphereLightHelper)
+
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2)
+scene.add(directionalLightHelper)
+
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.2)
+scene.add(pointLightHelper)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
+window.requestAnimationFrame(() => {
+    spotLightHelper.update()
+})
+
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
+scene.add(rectAreaLightHelper)
 
 /**
  * Objects
