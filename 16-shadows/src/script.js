@@ -140,3 +140,8 @@ const tick = () => {
 };
 
 tick();
+
+
+nothing = () => {
+const hi = "hi";
+}
